@@ -16,6 +16,7 @@ namespace Nucleos\SonataAutoConfigureBundle\Tests\DependencyInjection\Compiler;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminExtensionsCompilerPass;
 use Nucleos\SonataAutoConfigureBundle\DependencyInjection\SonataAutoConfigureExtension;
+use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension\AttributedAdminExtension;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension\ExtensionWithoutOptions;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension\GlobalExtension;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension\MultipleTargetedExtension;
@@ -87,6 +88,15 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
             ],
             [
                 TargetedWithPriorityExtension::class,
+                [
+                    [
+                        'target'   => 'app.admin.category',
+                        'priority' => 5,
+                    ],
+                ],
+            ],
+            [
+                AttributedAdminExtension::class,
                 [
                     [
                         'target'   => 'app.admin.category',

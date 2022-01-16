@@ -18,6 +18,7 @@ use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigure
 use Nucleos\SonataAutoConfigureBundle\DependencyInjection\SonataAutoConfigureExtension;
 use Nucleos\SonataAutoConfigureBundle\Exception\EntityNotFound;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\AnnotationAdmin;
+use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\AttributeAdmin;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\CategoryAdmin;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\DisableAutowireEntityAdmin;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\NoEntityAdmin;
@@ -120,6 +121,25 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
             ],
             [
                 AnnotationAdmin::class,
+                Category::class,
+                null,
+                [
+                    'manager_type'       => 'orm',
+                    'group'              => 'not test',
+                    'label'              => 'This is a Label',
+                    'show_in_dashboard'  => true,
+                    'show_mosaic_button' => true,
+                    'keep_open'          => false,
+                    'on_top'             => false,
+                ],
+                [
+                    'setTemplate',
+                    'setTranslationDomain',
+                    'addChild',
+                ],
+            ],
+            [
+                AttributeAdmin::class,
                 Category::class,
                 null,
                 [

@@ -23,9 +23,8 @@ Documentation
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [How does it work](#how-does-it-work)
+* [Attribute](#attribute)
 * [Annotation](#annotation)
-    * [Admin](#admin)
-    * [AdminExtension](#adminextension)
 
 ## Installation
 
@@ -125,6 +124,80 @@ Since your admin class is autowired you can still use setter injection but you h
 public function setSomeService(SomeService $someService)
 {
     $this->someService = $someService;
+}
+```
+
+## Attribute
+
+```php
+<?php
+
+namespace App\Admin;
+
+use Nucleos\SonataAutoConfigureBundle\Annotation\Admin;
+use App\Controller\Admin\CategoryController;
+use App\Entity\Category;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
+
+#[Admin(
+    label: "Category",
+    managerType: "orm",
+    group: "Category",
+    showInDashboard: true,
+    showMosaicButton: true,
+    keepOpen: true,
+    onTop: true,
+    icon: "<i class: 'fa fa-user'></i>",
+    labelTranslatorStrategy: "sonata.admin.label.strategy.native",
+    labelCatalogue: "App",
+    translationDomain: "messages",
+    pagerType: "simple",
+    controller: CategoryController::class,
+    entity: Category::class,
+    adminCode: "admin_code",
+    autowireEntity: true,
+    templates: [
+        "list" => "admin/category/list.html.twig"
+    ],
+    children: ["app.admin.product"]
+)]
+final class CategoryAdmin extends AbstractAdmin
+{
+}
+```
+
+### AdminExtension
+
+```php
+<?php
+
+namespace App\Admin;
+
+use Nucleos\SonataAutoConfigureBundle\Annotation\AdminExtension;
+use Sonata\AdminBundle\Admin\AbstractAdminExtension;
+
+#[AdminExtension(
+    global: true
+)]
+final class GlobalExtension extends AbstractAdminExtension
+{
+}
+```
+
+```php
+<?php
+
+namespace App\Admin;
+
+use Nucleos\SonataAutoConfigureBundle\Annotation\AdminExtension;
+use Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use App\Admin\ActivityAdmin;
+
+#[AdminExtension(
+    target: ["app.admin.project", ActivityAdmin::class]
+)]
+final class SortableExtension extends AbstractAdminExtension
+{
 }
 ```
 

@@ -13,10 +13,13 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\Annotation;
 
+use Attribute;
+
 /**
  * @Annotation
  * @Target("CLASS")
  */
+#[Attribute(Attribute::TARGET_CLASS)]
 final class AdminExtension
 {
     /**
@@ -33,6 +36,17 @@ final class AdminExtension
      * @var string[]
      */
     public $target;
+
+    public function __construct(
+        $data = [],
+        ?bool $global = null,
+        ?int $priority = null,
+        ?array $target = null
+    ) {
+        $this->global   = $data['global']   ?? $global;
+        $this->priority = $data['priority'] ?? $priority;
+        $this->target   = $data['target']   ?? $target;
+    }
 
     public function getOptions(): array
     {

@@ -13,10 +13,13 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\Annotation;
 
+use Attribute;
+
 /**
  * @Annotation
  * @Target("CLASS")
  */
+#[Attribute(Attribute::TARGET_CLASS)]
 final class Admin
 {
     /**
@@ -108,6 +111,47 @@ final class Admin
      * @var string[]
      */
     public $children = [];
+
+    public function __construct(
+        $data = [],
+        ?string $label = null,
+        ?string $managerType = null,
+        ?string $group = null,
+        ?bool $showInDashboard = null,
+        ?bool $showMosaicButton = null,
+        ?bool $keepOpen = null,
+        ?bool $onTop = null,
+        ?string $icon = null,
+        ?string $labelTranslatorStrategy = null,
+        ?string $labelCatalogue = null,
+        ?string $translationDomain = null,
+        ?string $pagerType = null,
+        ?string $adminCode = null,
+        ?string $entity = null,
+        ?string $controller = null,
+        ?bool $autowireEntity = null,
+        ?array $templates = null,
+        ?array $children = null
+    ) {
+        $this->label                   = $data['label']                   ?? $label;
+        $this->managerType             = $data['managerType']             ?? $managerType;
+        $this->group                   = $data['group']                   ?? $group;
+        $this->showInDashboard         = $data['showInDashboard']         ?? $showInDashboard;
+        $this->showMosaicButton        = $data['showMosaicButton']        ?? $showMosaicButton;
+        $this->keepOpen                = $data['keepOpen']                ?? $keepOpen;
+        $this->onTop                   = $data['onTop']                   ?? $onTop;
+        $this->icon                    = $data['icon']                    ?? $icon;
+        $this->labelTranslatorStrategy = $data['labelTranslatorStrategy'] ?? $labelTranslatorStrategy;
+        $this->labelCatalogue          = $data['labelCatalogue']          ?? $labelCatalogue;
+        $this->translationDomain       = $data['translationDomain']       ?? $translationDomain;
+        $this->pagerType               = $data['pagerType']               ?? $pagerType;
+        $this->adminCode               = $data['adminCode']               ?? $adminCode;
+        $this->entity                  = $data['entity']                  ?? $entity;
+        $this->controller              = $data['controller']              ?? $controller;
+        $this->autowireEntity          = $data['autowireEntity']          ?? $autowireEntity;
+        $this->templates               = $data['templates']               ?? $templates;
+        $this->children                = $data['children']                ?? $children;
+    }
 
     public function getOptions(): array
     {
